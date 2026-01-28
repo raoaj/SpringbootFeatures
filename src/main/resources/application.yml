@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: Value-Demo
+    environment: dev
+
+# debug: true
+
+logging:
+  level:
+    org.springframework.boot.autoconfigure: INFO
+    org.springframework: INFO
+
+notification:
+  email:
+    enabled : false
+    from-address: jaravinda@gmail.com
