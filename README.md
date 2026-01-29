@@ -1,3 +1,6 @@
+Spring Bean and IOC  -> https://www.youtube.com/watch?v=aS9SQITRocc
+
+ Or 																											 
  How Spring boot run method works. Post mortem of run method                                                      
  public static void main(String[] args) {
 		SpringApplication.run(Springboot4FeaturesApplication.class, args);
