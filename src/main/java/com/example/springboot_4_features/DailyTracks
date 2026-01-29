@@ -1,11 +1,5 @@
 
 
-package com.example.springboot_4_features;
-
-import static java.lang.IO.print;
-
-
-
 
 //Annotation part of Spring framework
 /*
