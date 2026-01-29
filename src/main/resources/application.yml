@@ -8,9 +8,26 @@ spring:
 logging:
   level:
     org.springframework.boot.autoconfigure: INFO
-    org.springframework: INFO
+    #org.springframework: INFO
+    org.springframework.web: INFO
+    org.springframework.web.method.annotation: INFO
 
 notification:
   email:
     enabled : false
-    from-address: jaravinda@gmail.com
+    from-address: test@gmail.com
+
+  sms:
+    enabled : true
+    sender-id: "codesnippet"
+
+  retry:
+    max-attempts: 3
+    backoff-milisec: 500
+
+
+
+  endpoints:
+    web:
+      exposure:
+        include: actuators,health,info
