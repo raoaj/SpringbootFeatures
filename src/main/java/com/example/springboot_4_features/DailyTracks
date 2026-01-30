@@ -1,177 +1,47 @@
 
 
 
-//Annotation part of Spring framework
-/*
-import org.springframework.web.bind.annotation.BindParam
-import org.springframework.web.bind.annotation.ControllerAdvice
-import org.springframework.web.bind.annotation.CookieValue
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.InitBinder
-import org.springframework.web.bind.annotation.Mapping
-import org.springframework.web.bind.annotation.MatrixVariable
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestAttribute
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RequestPart
-import org.springframework.web.bind.annotation.ResponseBody
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.bind.annotation.RestControllerAdvice
-import org.springframework.web.bind.annotation.SessionAttribute
-import org.springframework.web.bind.annotation.SessionAttributes
 
-import org.springframework.beans.factory.annotation.Lookup
-import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.beans.factory.annotation.Autowired
+RestClient Builder Demo
+A Spring Boot project demonstrating the Builder pattern in Java and why you should inject RestClient.Builder instead of using RestClient.create().
 
+This project was created in response to a question on Spring Office Hours about when to use RestTemplate vs RestTemplate.Builder.
 
-import org.springframework.cache.annotation.CacheConfig
-import org.springframework.cache.annotation.CacheEvict
-import org.springframework.cache.annotation.CachePut
-import org.springframework.cache.annotation.Cacheable
-import org.springframework.cache.annotation.Caching
-import org.springframework.cache.annotation.EnableCaching
+The Problem
+When creating objects with many optional parameters, you typically face three approaches:
 
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.ComponentScans
-import org.springframework.context.annotation.Conditional
-import org.springframework.context.annotation.Configuration
+1. JavaBean Pattern (bean/)
+SocialMediaPost post = new SocialMediaPost();
+post.setContent("Check out my new tutorial!");
+post.setPlatform("LinkedIn");
+// Object is mutable and could be in an inconsistent state
+2. Telescoping Constructors (telescoping/)
+// What do these parameters mean? Hard to read.
+new SocialMediaPost("Content", "LinkedIn", "Dan Vega", List.of("Java"), null, true);
+3. Builder Pattern (builder/)
+SocialMediaPost post = new SocialMediaPost.Builder("Check out my new tutorial!")
+    .platform("LinkedIn")
+    .author("Dan Vega")
+    .hashtags("Java", "SpringBoot")
+    .scheduled(true)
+    .build();
+RestClient: create() vs Builder
+// Simple but misses auto-configuration benefits
+RestClient client = RestClient.create("https://api.example.com");
 
+// Better: inject the auto-configured builder
+@Bean
+CommandLineRunner run(RestClient.Builder builder) {
+    RestClient client = builder.baseUrl("https://api.example.com").build();
+}
+Why inject the Builder? Spring Boot's auto-configured RestClient.Builder includes:
 
-import org.springframework.context.annotation.DependsOn
-import org.springframework.context.annotation.Description
-import org.springframework.context.annotation.EnableAspectJAutoProxy
-
-import org.springframework.context.annotation.EnableLoadTimeWeaving
-import org.springframework.context.annotation.EnableMBeanExport
-
-import org.springframework.context.annotation.Fallback
-import org.springframework.context.annotation.Import
-import org.springframework.context.annotation.ImportResource
-import org.springframework.context.annotation.ImportRuntimeHints
-import org.springframework.context.annotation.Lazy
-import org.springframework.context.annotation.Primary
-import org.springframework.context.annotation.Profile
-import org.springframework.context.annotation.PropertySource
-
-import org.springframework.context.annotation.PropertySources
-import org.springframework.context.annotation.Proxyable
-import org.springframework.context.annotation.ReflectiveScan
-import org.springframework.context.annotation.Role
-import org.springframework.context.annotation.Scope
-
-import org.springframework.context.event.EventListener
-
-import org.springframework.core.annotation.Order
-
-import org.springframework.format.annotation.DateTimeFormat
-import org.springframework.format.annotation.DurationFormat
-import org.springframework.format.annotation.NumberFormat
-import org.springframework.lang.CheckReturnValue
-import org.springframework.lang.Contract
-import org.springframework.lang.NonNull
-import org.springframework.lang.NonNullApi
-import org.springframework.lang.NonNullFields
-import org.springframework.lang.Nullable
-import org.springframework.resilience.annotation.ConcurrencyLimit
-import org.springframework.resilience.annotation.EnableResilientMethods
-import org.springframework.resilience.annotation.Retryable
-import org.springframework.scheduling.annotation.Async
-import org.springframework.scheduling.annotation.EnableAsync
-import org.springframework.scheduling.annotation.EnableScheduling
-import org.springframework.scheduling.annotation.Scheduled
-import org.springframework.scheduling.annotation.Schedules
-import org.springframework.stereotype.Component
-import org.springframework.stereotype.Controller
-import org.springframework.stereotype.Indexed
-import org.springframework.stereotype.Repository
-import org.springframework.stereotype.Service
-import org.springframework.validation.annotation.Validated
-import org.springframework.web.context.annotation.ApplicationScope
-import org.springframework.web.context.annotation.RequestScope
-import org.springframework.web.context.annotation.SessionScope
-
-import org.springframework.web.service.annotation.DeleteExchange
-import org.springframework.web.service.annotation.GetExchange
-import org.springframework.web.service.annotation.HttpExchange
-import org.springframework.web.service.annotation.PatchExchange
-import org.springframework.web.service.annotation.PostExchange
-import org.springframework.web.service.annotation.PutExchange
-
-
-import org.springframework.web.service.registry.ImportHttpServices
-import org.springframework.web.servlet.config.annotation.EnableWebMvc
- */
-
-//Springboot Annotations
-/*
-
-import org.springframework.boot.SpringBootConfiguration
-
-import org.springframework.boot.autoconfigure.AutoConfiguration
-
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage
-import org.springframework.boot.autoconfigure.AutoConfigureAfter
-import org.springframework.boot.autoconfigure.AutoConfigureBefore
-import org.springframework.boot.autoconfigure.AutoConfigureOrder
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperties
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty
-import org.springframework.boot.autoconfigure.condition.ConditionalOnCheckpointRestore
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
-import org.springframework.boot.autoconfigure.condition.ConditionalOnCloudPlatform
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
-import org.springframework.boot.autoconfigure.condition.ConditionalOnJava
-import org.springframework.boot.autoconfigure.condition.ConditionalOnJndi
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingFilterBean
-import org.springframework.boot.autoconfigure.condition.ConditionalOnNotWarDeployment
-import org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebApplication
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperties
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
-import org.springframework.boot.autoconfigure.condition.ConditionalOnResource
-import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate
-import org.springframework.boot.autoconfigure.condition.ConditionalOnThreading
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWarDeployment
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
-import org.springframework.boot.autoconfigure.data.ConditionalOnRepositoryType
-import org.springframework.boot.autoconfigure.web.ConditionalOnEnabledResourceChain
-
-import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConfigurationPropertiesBinding
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan
-import org.springframework.boot.context.properties.ConfigurationPropertiesSource
-import org.springframework.boot.context.properties.DeprecatedConfigurationProperty
-import org.springframework.boot.context.properties.EnableConfigurationProperties
-import org.springframework.boot.context.properties.NestedConfigurationProperty
-import org.springframework.boot.context.properties.bind.ConstructorBinding
-import org.springframework.boot.context.properties.bind.DefaultValue
-import org.springframework.boot.context.properties.bind.Name
-import org.springframework.boot.context.properties.bind.Nested
-import org.springframework.boot.convert.DataSizeUnit
-import org.springframework.boot.convert.Delimiter
-import org.springframework.boot.convert.DurationFormat
-import org.springframework.boot.convert.DurationUnit
-import org.springframework.boot.convert.PeriodFormat
-import org.springframework.boot.convert.PeriodUnit
-
-import org.springframework.boot.jackson.JacksonComponent
-import org.springframework.boot.jackson.JacksonMixin;
-*/
+Any RestClientCustomizer beans you've defined
+Message converters from your classpath (Jackson, etc.)
+Observability/metrics integration
+Connection pool settings
+Running the Project
+./mvnw spring-boot:run
+Requirements
+Java 25
+Spring Boot 4.0.2
