@@ -1,47 +1,7 @@
 
 
 
+restclientbuilderdemo:
+Readme Docs For RestClient Builder Demo
 
-RestClient Builder Demo
-A Spring Boot project demonstrating the Builder pattern in Java and why you should inject RestClient.Builder instead of using RestClient.create().
-
-This project was created in response to a question on Spring Office Hours about when to use RestTemplate vs RestTemplate.Builder.
-
-The Problem
-When creating objects with many optional parameters, you typically face three approaches:
-
-1. JavaBean Pattern (bean/)
-SocialMediaPost post = new SocialMediaPost();
-post.setContent("Check out my new tutorial!");
-post.setPlatform("LinkedIn");
-// Object is mutable and could be in an inconsistent state
-2. Telescoping Constructors (telescoping/)
-// What do these parameters mean? Hard to read.
-new SocialMediaPost("Content", "LinkedIn", "Dan Vega", List.of("Java"), null, true);
-3. Builder Pattern (builder/)
-SocialMediaPost post = new SocialMediaPost.Builder("Check out my new tutorial!")
-    .platform("LinkedIn")
-    .author("Dan Vega")
-    .hashtags("Java", "SpringBoot")
-    .scheduled(true)
-    .build();
-RestClient: create() vs Builder
-// Simple but misses auto-configuration benefits
-RestClient client = RestClient.create("https://api.example.com");
-
-// Better: inject the auto-configured builder
-@Bean
-CommandLineRunner run(RestClient.Builder builder) {
-    RestClient client = builder.baseUrl("https://api.example.com").build();
-}
-Why inject the Builder? Spring Boot's auto-configured RestClient.Builder includes:
-
-Any RestClientCustomizer beans you've defined
-Message converters from your classpath (Jackson, etc.)
-Observability/metrics integration
-Connection pool settings
-Running the Project
-./mvnw spring-boot:run
-Requirements
-Java 25
-Spring Boot 4.0.2
+https://github.com/danvega/rcbuilder
