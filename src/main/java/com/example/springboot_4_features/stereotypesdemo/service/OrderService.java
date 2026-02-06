@@ -3,7 +3,7 @@ package com.example.springboot_4_features.stereotypesdemo.service;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import com.example.springboot_4_features.stereotypesdemo.client.PaymentClient;
-import static java.lang.IO.print;
+//import static java.lang.IO.print;
 
 @Component
 public class OrderService {
@@ -24,7 +24,7 @@ public class OrderService {
     */
 
      //   PaymentClient paymentClient =new PaymentClient();
-        print("Placing Order....");
+        System.out.println("Placing Order....");
        // paymentClient.pay();
     }
 }

@@ -2,7 +2,7 @@ package com.example.springboot_4_features.stereotypesdemo.client;
 
 import org.springframework.stereotype.Component;
 
-import static java.lang.IO.print;
+//import static java.lang.IO.print;
 
 //@Component
 public class PaymentClient {
@@ -12,7 +12,7 @@ public class PaymentClient {
       Hence Component scan fails while creating a bean as it doesn't know what value to be set.
       Hence Create bean with the help of @Component. Hence we need to go with @Bean . Remove @Component
     */
-/*
+
     private final String provider;
     private final int timeout;
 
@@ -21,7 +21,7 @@ public class PaymentClient {
         this.provider = provider;
         this.timeout = timeout;
     }
-*/
+
 
     public void pay(){
        // print("Paying using "+provider+ " with timeout"+timeout);

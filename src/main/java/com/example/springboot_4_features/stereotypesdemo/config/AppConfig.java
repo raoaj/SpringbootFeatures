@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-   /* @Bean
+   @Bean
     public PaymentClient paymentClient(){
         return new PaymentClient("UPI",5000);
-    }*/
+    }
 }
